@@ -1,0 +1,59 @@
+@model IEnumerable<Project.Models.Seance>
+
+
+@{
+
+    ViewData["Title"] = "Home Page";
+}
+<body>
+
+
+<section>
+<h4>Liste des Seéances</h4>
+<hr />
+
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.nomSeance)
+            </th>
+            @if(User.IsInRole("Administration")){
+          <th>
+               
+              <a asp-action="AddandEdit" class="btn btn-outline-success"><i class="far fa-plus-square"></i> Séance</a>
+           
+            </th>
+           } 
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.nomSeance)
+            </td>
+            
+            <td>
+                @if(User.IsInRole("Administration")){
+                <a asp-action="AddandEdit" asp-route-id="@item.Id"><i class="fa fa-marker fa-lg"></i></a>
+                <a asp-action="Delete" asp-route-id="@item.Id" class="text-danger ml-1" onclick="return confirm('Voulez-vous vraiment supprimer?')"><i class="fa fa-trash-alt fa-lg"></i></a>
+            }
+            </td>
+            <td>
+                 <a asp-action="Index" asp-controller="Absence" class="btn btn-outline-success" ><i class="fa fa-table"></i> Absences</a>
+                <a asp-action="Index" asp-controller="Presence" class="btn btn-outline-success"><i class="fa fa-table"></i> Présences</a>
+       </td>
+       
+        </tr>
+}
+    </tbody>
+</table>
+
+</section>
+</body>
+
+
+
+

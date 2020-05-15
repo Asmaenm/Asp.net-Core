@@ -1,0 +1,61 @@
+@model IEnumerable<Project.Models.Classe>
+
+
+@{
+
+    ViewData["Title"] = "Home Page";
+}
+<body>
+
+
+<section>
+<h4>Liste des Classes</h4>
+<hr />
+
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            
+            <th>
+                @Html.DisplayNameFor(model => model.nomClasse)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.filiere)
+            </th>
+          @if(User.IsInRole("Administration")){
+            <th>
+                <a asp-action="AddEdit" class="btn btn-outline-success"><i class="far fa-plus-square"></i> Classe</a>
+                
+            </th>
+            }
+
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.nomClasse)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.filiere)
+            </td>
+           @if(User.IsInRole("Administration")){
+            <td>
+                <a asp-action="AddEdit" asp-route-id="@item.id"><i class="fa fa-marker fa-lg"></i></a>
+                <a asp-action="Delete" asp-route-id="@item.id" class="text-danger ml-1" onclick="return confirm('Voulez-vous vraiment supprimer?')"><i class="fa fa-trash-alt fa-lg"></i></a>
+                <a asp-action="Liste"   asp-route-id="@item.id"class="btn btn-outline-success"><i class="fa fa-table"></i>  Liste</a>
+                
+            </td>
+            }
+          
+        </tr>
+}
+    </tbody>
+</table>
+
+</section>
+</body>
+
+

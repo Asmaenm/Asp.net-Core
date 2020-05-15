@@ -1,0 +1,62 @@
+@model IEnumerable<Project.Models.MatiereProf>
+
+
+@{
+
+    ViewData["Title"] = "Home Page";
+}
+<body>
+
+
+<section>
+ @if(User.IsInRole("Administration")){
+<h4>Matiéres d'assiduité</h4>
+
+}
+else{
+    <h4>Mes matiéres</h4>
+}
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+           
+            <th>
+                @Html.DisplayNameFor(model => model.Nom)
+            </th>
+           @if(User.IsInRole("Administration")){
+            <th>
+               
+              <a asp-action="AddandEdit" asp-controller="MatiereProf" class="btn btn-outline-success"><i class="far fa-plus-square"></i> Matiére</a>
+           
+            </th>
+           } 
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nom)
+            </td>
+         
+           
+                @if(User.IsInRole("Administration")){
+                <td>
+                <a asp-action="AddandEdit" asp-controller="MatiereProf" asp-route-id="@item.Id"><i class="fa fa-marker fa-lg"></i></a>
+                <a asp-action="Delete" asp-route-id="@item.Id" class="text-danger ml-1" onclick="return confirm('Voulez-vous vraiment supprimer?')"><i class="fa fa-trash-alt fa-lg"></i></a>
+                </td>
+                }     
+                <td>
+                 <a asp-action="Index" asp-controller="Classematiere" class="btn btn-outline-success"><i class="fa fa-table"></i> Classes</a>
+                 </td> 
+
+        </tr>
+}
+    </tbody>
+</table>
+
+</section>
+</body>
+
+

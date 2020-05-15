@@ -1,0 +1,69 @@
+@model IEnumerable<Project.Models.Etudiant>
+
+
+@{
+
+    ViewData["Title"] = "Home Page";
+}
+<body>
+
+
+<section>
+<h4>Liste des étudiants</h4>
+<hr />
+
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.nomEt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.prenomEt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.tel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.emailEt)
+            </th>
+            <th>
+                <a asp-action="AddOrEdit" class="btn btn-outline-success"><i class="far fa-plus-square"></i> Etudiant</a>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nomEt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.prenomEt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.emailEt)
+            </td>
+            <td>
+                <a asp-action="AddOrEdit" asp-route-id="@item.id"><i class="fa fa-marker fa-lg"></i></a>
+                <a asp-action="Delete" asp-route-id="@item.id" class="text-danger ml-1" onclick="return confirm('Voulez-vous vraiment supprimer?')"><i class="fa fa-trash-alt fa-lg"></i></a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+</section>
+</body>
+
+
